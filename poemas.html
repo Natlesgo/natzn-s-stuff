@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Poetry Box — Natzn</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+
+<style>
+
+  :root{
+    --background: #faf7f5;
+    --paper: #fffdfc;
+    --paper-hover: #fff9f7;
+
+    --text: #403b40;
+    --muted: #9a9298;
+
+    --pink: #e8aebe;
+    --pink-soft: #f7e4e9;
+
+    --purple: #b8a7d9;
+    --blue: #a9c9dc;
+
+    --border: #eee5e2;
+  }
+
+
+  *{
+    box-sizing: border-box;
+  }
+
+
+  html, body{
+    margin:0;
+    padding:0;
+
+    min-height:100vh;
+
+    background:
+      radial-gradient(
+        circle at 50% 0%,
+        #f899e0e1 0%,
+        var(--background) 65%
+      );
+
+    color:var(--text);
+
+    font-family:'DM Sans', sans-serif;
+
+    display:flex;
+    justify-content:center;
+
+    padding:40px 16px;
+  }
+
+
+  /* Pequenos pontinhos decorativos */
+
+  body::before{
+    content:"";
+
+    position:fixed;
+
+    width:260px;
+    height:260px;
+
+    top:-120px;
+    right:-100px;
+
+    border-radius:50%;
+
+    background:var(--pink-soft);
+
+    opacity:.55;
+
+    pointer-events:none;
+  }
+
+
+  body::after{
+    content:"";
+
+    position:fixed;
+
+    width:180px;
+    height:180px;
+
+    bottom:-90px;
+    left:-70px;
+
+    border-radius:50%;
+
+    background:#eee8f7;
+
+    opacity:.5;
+
+    pointer-events:none;
+  }
+
+
+  /* CAIXA PRINCIPAL */
+
+  .box{
+    position:relative;
+
+    width:min(560px, 94vw);
+
+    background:var(--paper);
+
+    border:1px solid var(--border);
+
+    border-radius:28px;
+
+    padding:34px 26px 30px;
+
+    box-shadow:
+      0 18px 50px rgba(0, 0, 0, 0.466);
+  }
+
+
+  /* CABEÇALHO */
+
+  .back{
+    display:inline-block;
+
+    color:var(--muted);
+
+    text-decoration:none;
+
+    font-size:.82rem;
+
+    margin-bottom:30px;
+
+    transition:
+      color .2s ease,
+      transform .15s ease;
+  }
+
+
+  .back:hover{
+    color:var(--pink);
+
+    transform:translateX(-3px);
+  }
+
+
+  .heading{
+    text-align:center;
+
+    margin-bottom:30px;
+  }
+
+
+  .little-star{
+    display:block;
+
+    color:var(--pink);
+
+    font-size:1rem;
+
+    margin-bottom:10px;
+  }
+
+
+  .title{
+    margin:0;
+
+    font-family:'Playfair Display', serif;
+
+    font-weight:600;
+
+    font-size:2rem;
+
+    letter-spacing:.01em;
+
+    color:var(--text);
+  }
+
+
+  .subtitle{
+    margin:9px 0 0;
+
+    color:var(--muted);
+
+    font-size:.88rem;
+  }
+
+
+  .count{
+    display:inline-block;
+
+    margin-top:15px;
+
+    padding:5px 11px;
+
+    border-radius:20px;
+
+    background:var(--pink-soft);
+
+    color:#b47789;
+
+    font-size:.7rem;
+
+    letter-spacing:.04em;
+  }
+
+
+  /* LINHA */
+
+  .divider{
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-bottom:22px;
+
+    color:#d9c8ce;
+
+    font-size:.7rem;
+  }
+
+
+  .divider::before,
+  .divider::after{
+    content:"";
+
+    height:1px;
+
+    flex:1;
+
+    background:var(--border);
+  }
+
+
+  /* LISTA */
+
+  .poems{
+    display:flex;
+
+    flex-direction:column;
+
+    gap:16px;
+  }
+
+
+  /* CARTÃO */
+
+  .poem{
+    display:block;
+
+    overflow:hidden;
+
+    text-decoration:none;
+
+    color:var(--text);
+
+    background:var(--paper);
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    box-shadow:
+      0 5px 16px rgba(80, 60, 70, .035);
+
+    transition:
+      transform .18s ease,
+      box-shadow .18s ease,
+      border-color .18s ease;
+  }
+
+
+  .poem:hover{
+    transform:translateY(-3px);
+
+    border-color:#ead1d8;
+
+    box-shadow:
+      0 10px 24px rgba(80, 60, 70, .08);
+  }
+
+
+  /* BANNER */
+
+  .poem-banner{
+    display:block;
+
+    width:100%;
+
+    height:72px;
+
+    object-fit:cover;
+
+    background:#f4eeee;
+
+    border-bottom:1px solid var(--border);
+  }
+
+
+  /* CONTEÚDO */
+
+  .poem-content{
+    padding:17px 18px 18px;
+  }
+
+
+  .poem-number{
+    display:block;
+
+    color:#c69aaa;
+
+    font-size:.68rem;
+
+    letter-spacing:.1em;
+
+    margin-bottom:6px;
+  }
+
+
+  .poem-title{
+    display:block;
+
+    font-family:'Playfair Display', serif;
+
+    font-size:1.08rem;
+
+    font-weight:600;
+
+    line-height:1.4;
+
+    margin-bottom:6px;
+  }
+
+
+  .poem-date{
+    display:block;
+
+    color:var(--muted);
+
+    font-size:.75rem;
+  }
+
+
+  /* RODAPÉ */
+
+  .footer{
+    text-align:center;
+
+    margin-top:28px;
+
+    color:#b3a9ae;
+
+    font-size:.7rem;
+  }
+
+
+  .heart{
+    color:var(--pink);
+  }
+
+
+  /* CELULAR */
+
+  @media(max-width:480px){
+
+    html, body{
+      padding:22px 10px;
+    }
+
+    .box{
+      padding:27px 17px 24px;
+
+      border-radius:23px;
+    }
+
+    .title{
+      font-size:1.7rem;
+    }
+
+    .poem-banner{
+      height:62px;
+    }
+
+  }
+
+</style>
+</head>
+
+
+<body>
+
+
+  <main class="box">
+
+
+    <a class="back" href="index.html">
+      ← voltar
+    </a>
+
+
+    <header class="heading">
+
+      <span class="little-star">
+        ✿
+      </span>
+
+      <h1 class="title">
+        Natzn's Poetry Box
+      </h1>
+
+      <p class="subtitle">
+        things i couldn't leave unsaid
+      </p>
+
+      <span class="count">
+        03 poems
+      </span>
+
+    </header>
+
+
+    <div class="divider">
+      ♡
+    </div>
+
+
+    <section class="poems">
+
+
+      <!-- POEMA 03 -->
+
+      <a class="poem" href="poemas\poema03.html">
+
+        <img
+          class="poem-banner"
+          src="https://i.pinimg.com/1200x/38/21/7d/38217dd2cb4af040ef87b07c0d743f42.jpg"
+          alt=""
+        >
+
+        <div class="poem-content">
+
+          <span class="poem-number">
+            03
+          </span>
+
+          <span class="poem-title">
+            "A Noiva de branco"
+          </span>
+
+          <span class="poem-date">
+            23 de dezembro, 2024
+          </span>
+
+        </div>
+
+      </a>
+
+
+      <!-- POEMA 02 -->
+
+      <a class="poem" href="poemas\poema02.html">
+
+        <img
+          class="poem-banner"
+          src="https://i.pinimg.com/1200x/52/1b/e6/521be64cdb53322907fda07fde262f19.jpg"
+          alt=""
+        >
+
+        <div class="poem-content">
+
+          <span class="poem-number">
+            02
+          </span>
+
+          <span class="poem-title">
+            "Meu Demônio é um Anjo?"
+          </span>
+
+          <span class="poem-date">
+            18 de setembro, 2024
+          </span>
+
+        </div>
+
+      </a>
+
+
+      <!-- POEMA 01 -->
+
+      <a class="poem" href="poemas\poema01.html">
+
+        <img
+          class="poem-banner"
+          src="https://i.pinimg.com/1200x/da/92/e9/da92e981816d962241fa880f6cb4fa17.jpg"
+          alt=""
+        >
+
+        <div class="poem-content">
+
+          <span class="poem-number">
+            01
+          </span>
+
+          <span class="poem-title">
+            "A realidade"
+          </span>
+
+          <span class="poem-date">
+            08 de agosto, 2024
+          </span>
+
+        </div>
+
+      </a>
+
+
+    </section>
+
+
+    <footer class="footer">
+      made with <span class="heart">♡</span> by Natzn
+    </footer>
+
+
+  </main>
+
+
+</body>
+</html>
